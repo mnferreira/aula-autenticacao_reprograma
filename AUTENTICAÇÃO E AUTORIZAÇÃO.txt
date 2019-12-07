@@ -1,0 +1,68 @@
+AUTENTICAÇÃO E AUTORIZAÇÃO
+
+criptografia
+tokens
+hashes
+
+orientação a objetos -> real para o código
+
+livro: you don't know js
+
+npm install bcryptjs
+
+
+const bcrypt = require('bcryptjs') -> busca no node modules
+
+token JWT - secret da Signature (chave que indica se irá ser criptografado ou não)
+
+
+Para instalar o plug-in: json web token:
+ npm install jsonwebtoken
+
+Para autorização (em cada endpoint que quiser):
+
+ no treinadoresController, const getAll:
+	const request.get('authorization') - 'authorization' é a chave que vai no header. o nome pode ser qualquer. No postman, essa chave recebe um valor que é um token (resposta do login)
+	const decoded = jwt.verify(token, PUBLIC_KEY) // token decodificado
+
+ no postman:
+	GET: http://localhost:3000/treinadores/login
+	aba headers-KEY: content-type - application.json
+		     authorization: 
+
+Segurança da informação
+git pull upstream
+a cada vez que uma rota for acessada, há um token no header
+para gerar as chaves pública/privada: site rsa generator
+token - faz a dupla verificação (nos endpoints) para verificar se o usuário está autenticado
+criptografia - é usada nos dados do token
+
+
+    if (senhaCorreta) {
+      const token = jwt.sign(
+        {
+          email: treinadorEncontrado.email,  // Esse objeto é um payload, que tem um valor que é um objeto
+          id: treinadorEncontrado._id,
+	  grupo: treinadorEncontrado.grupo
+        },
+        CHAVE_PRIVADA,
+        { expiresIn: 6000 }
+      )
+
+Para abrir o código em uma branch diferente:
+git branch
+git checkout autenticacao
+
+---------------------------------------------------------------------------------
+A chave do jwt deve ser oculta. para isso:
+
+criar um arquivo .env = colocar nele o nome da chave e o valor
+npm install dotenv-safe
+
+no package json, mudar a versão do dotenv-safe, e installar novamente
+
+
+
+npm install
+npm install express
+npm install mongoose
