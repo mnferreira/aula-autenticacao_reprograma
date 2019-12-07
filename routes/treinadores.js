@@ -13,6 +13,8 @@ const autenticar = (request, response, next) => {
     return response.status(401).send('Você precisa fazer login!')
   }
 
+
+  
   const token = authHeader.split(' ')[1]
 
   jwt.verify(token, SEGREDO, (error, decoded) => {
